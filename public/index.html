@@ -778,6 +778,62 @@
             const scholarshipsListContainer = document.querySelector('.scholarships-list');
             const internshipsListContainer = document.querySelector('.internships-list');
 
+             // Helper function
+        function createOpportunityHTML(o) {
+    return `<div class="opportunity-item">
+        <div class="opportunity-details">
+            <h3>${o.title}</h3>
+            <p>${o.description}</p>
+        </div>
+        <a href="${o.link}" target="_blank" class="apply-now-btn">Apply Now</a>
+    </div>`;
+    }
+
+
+            // Load scholarships
+            // Load scholarships
+            async function loadScholarships() {
+                try {
+                    if (!scholarshipsListContainer) return;
+
+                    const res = await fetch('/api/opportunities/scholarships');
+                    const data = await res.json();
+
+                    data.forEach(o => {
+                        scholarshipsListContainer.insertAdjacentHTML(
+                            'beforeend',
+                            createOpportunityHTML(o) // ✅ FIXED
+                        );
+                    });
+                } catch (err) {
+                    console.error('Failed to load scholarships', err);
+                }
+            }
+
+            // Load internships
+            async function loadInternships() {
+                try {
+                    if (!internshipsListContainer) return;
+
+                    const res = await fetch('/api/opportunities/internships');
+                    const data = await res.json();
+
+                    data.forEach(o => {
+                        internshipsListContainer.insertAdjacentHTML(
+                            'beforeend',
+                            createOpportunityHTML(o) // ✅ FIXED
+                        );
+                    });
+                } catch (err) {
+                    console.error('Failed to load internships', err);
+                }
+            }
+
+            // ✅ Call on page load
+            loadScholarships();
+            loadInternships();
+
+
             // --- Custom Message Box Logic ---
             const messageBox = document.getElementById('message-box');
             const messageText = document.getElementById('message-text');
@@ -1327,3 +1383,4 @@
 
 
 </html>
+
