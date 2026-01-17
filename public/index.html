@@ -1288,7 +1288,8 @@
                         location: document.getElementById('opp-location').value,
                         salary: document.getElementById('opp-salary').value,
                         link: document.getElementById('opp-link').value,
-                        category: document.getElementById('opp-category').value,
+                        category: document.getElementById('opp-category').value.toLowerCase(),
+
                     };
 
                     try {
@@ -1326,3 +1327,4 @@
 
 
 </html>
+
