@@ -1,57 +1,36 @@
 // routes/opportunities.js
 const express = require('express');
 const router = express.Router();
-const Opportunity = require('../models/Opportunity'); // <-- Import the new model
-const {
-    protect,
-    admin
-} = require('../middleware/auth');
-// @route   POST /api/opportunities
-// @desc    Add a new scholarship/internship (Admin only)
-// @access  Private/Admin
-router.post('/', protect, admin, async(req, res) => {
+const Opportunity = require('../models/Opportunity');
+const { protect, admin } = require('../middleware/auth');
+
+// ✅ Admin-only: Add opportunity
+router.post('/', protect, admin, async (req, res) => {
     try {
         const opportunity = await Opportunity.create(req.body);
-        res.status(201).json({
-            message: `Opportunity "${opportunity.title}" added successfully!`,
-            opportunity
-        });
+        res.status(201).json(opportunity);
     } catch (error) {
-        console.error('Error adding opportunity:', error);
-        res.status(500).json({
-            message: 'Failed to add opportunity to the database.',
-            error: error.message
-        });
+        res.status(500).json({ message: error.message });
     }
 });
-// @route   GET /api/opportunities/scholarships
-// @desc    Get all scholarships (used by frontend)
-// @access  Public
-router.get('/scholarships', async(req, res) => {
+
+// ✅ Public: Get scholarships
+router.get('/scholarships', async (req, res) => {
     try {
-        // Find all opportunities where category is 'scholarship', sort by newest first
-        const scholarships = await Opportunity.find({ category: 'scholarship' }).sort({ createdAt: -1 });
-        res.json(scholarships);
+        const data = await Opportunity.find({ category: 'scholarship' }).sort({ createdAt: -1 });
+        res.json(data);
     } catch (error) {
-        console.error('Error fetching scholarships:', error);
-        res.status(500).json({
-            message: 'Server error while fetching scholarships.'
-        });
+        res.status(500).json({ message: error.message });
     }
 });
-// @route   GET /api/opportunities/internships
-// @desc    Get all internships (used by frontend)
-// @access  Public
-router.get('/internships', async(req, res) => {
+
+// ✅ Public: Get internships
+router.get('/internships', async (req, res) => {
     try {
-        // Find all opportunities where category is 'internship', sort by newest first
-        const internships = await Opportunity.find({ category: 'internship' }).sort({ createdAt: -1 });
-        res.json(internships);
+        const data = await Opportunity.find({ category: 'internship' }).sort({ createdAt: -1 });
+        res.json(data);
     } catch (error) {
-        console.error('Error fetching internships:', error);
-        res.status(500).json({
-            message: 'Server error while fetching internships.'
-        });
+        res.status(500).json({ message: error.message });
     }
 });
 
