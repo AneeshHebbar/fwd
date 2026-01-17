@@ -2,288 +2,1328 @@
 <html lang="en">
 
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dream Bridge</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dream Bridge - Your Gateway to Opportunity</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
 
     <style>
-        body {
-            font-family: 'Inter', sans-serif;
-            background: #1c212a;
-            color: #f8f9fa;
-            margin: 0;
+        /* --- 1. Variables and Global Reset (Professional Dark Theme) --- */
+        
+         :root {
+            --color-primary-blue: #007BFF;
+            /* Professional Blue */
+            --color-accent-green: #28A745;
+            /* Accent Green */
+            --color-background-dark: #1c212a;
+            /* Deep Charcoal/Dark Gray */
+            --color-surface-dark: #292e35;
+            /* Slightly Lighter Surface */
+            --color-text-light: #f8f9fa;
+            /* Off-White Text */
+            --font-main: 'Inter', sans-serif;
+            --border-radius-standard: 8px;
+            --transition-speed: 0.3s;
         }
-
-        header {
-            background: #292e35;
-            padding: 15px 5%;
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: var(--font-main);
+            background-color: var(--color-background-dark);
+            color: var(--color-text-light);
+            line-height: 1.6;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        /* --- 2. Header and Navigation --- */
+        
+        .main-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
+            padding: 15px 5%;
+            background-color: var(--color-surface-dark);
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+            z-index: 100;
         }
-
-        nav a {
-            color: #f8f9fa;
-            margin: 0 12px;
+        /* Updated Logo/Title Container */
+        
+        .logo {
+            display: flex;
+            /* Use flex to align image and text */
+            align-items: center;
             text-decoration: none;
+            color: var(--color-primary-blue);
+        }
+        /* Styling for the logo image (Placeholder for actual image) */
+        
+        .logo-img {
+            height: 35px;
+            /* Set the height of the logo image */
+            vertical-align: middle;
+            margin-right: 5px;
+        }
+        /* Stylish Logo Text */
+        
+        .logo-text {
+            font-family: var(--font-main);
+            font-size: 1.8rem;
+            font-weight: 800;
+            margin-left: 5px;
+            color: var(--color-text-light);
+            /* Changed to light text for contrast */
+            text-shadow: 0 0 8px rgba(0, 123, 255, 0.9);
+            /* Stronger blue glow */
+            transition: color var(--transition-speed);
+        }
+        
+        .nav-links a {
+            margin: 0 15px;
+            text-decoration: none;
+            color: var(--color-text-light);
             font-weight: 600;
+            transition: color var(--transition-speed);
         }
-
-        nav a.active {
-            color: #007bff;
+        
+        .nav-links a:hover,
+        .nav-links a.active {
+            color: var(--color-primary-blue);
         }
-
-        .btn {
-            background: #007bff;
-            color: #fff;
-            padding: 8px 16px;
-            border-radius: 6px;
-            border: none;
-            cursor: pointer;
-        }
-
-        main {
-            padding: 40px 5%;
-        }
-
-        .page {
+        
+        .admin-link {
             display: none;
         }
-
-        .page.active {
-            display: block;
+        
+        .admin-link.show {
+            display: inline;
+            color: var(--color-accent-green) !important;
         }
-
-        .opportunity-item {
-            background: #292e35;
-            padding: 20px;
-            border-radius: 8px;
+        /* Mobile Hamburger Icon */
+        
+        .hamburger {
+            display: none;
+            font-size: 1.5rem;
+            color: var(--color-primary-blue);
+            cursor: pointer;
+        }
+        /* Access Portal/Apply Button (Professional Style) */
+        
+        .btn-access,
+        .apply-now-btn,
+        .btn-submit {
+            background-color: var(--color-primary-blue);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: var(--border-radius-standard);
+            font-weight: 600;
+            text-transform: uppercase;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(0, 123, 255, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-block;
+        }
+        
+        .btn-access:hover,
+        .apply-now-btn:hover,
+        .btn-submit:hover:not(:disabled) {
+            background-color: #0056b3;
+            box-shadow: 0 6px 15px rgba(0, 123, 255, 0.5);
+            transform: translateY(-1px);
+        }
+        
+        .btn-submit:disabled {
+            background-color: #6c757d;
+            cursor: not-allowed;
+            box-shadow: none;
+        }
+        /* --- Styles for Logged-In User Controls (NEW) --- */
+        
+        .user-portal-controls {
+            display: none;
+            /* Hidden by default, shown when logged in */
+            align-items: center;
+            gap: 15px;
+            margin-left: 15px;
+            /* Add some separation from nav links */
+        }
+        
+        .user-portal-controls.logged-in {
+            display: flex;
+        }
+        
+        .user-portal-controls .username-display {
+            font-weight: 600;
+            color: var(--color-text-light);
+            /* Profile icon style */
+            cursor: pointer;
+            text-decoration: none;
+            transition: color var(--transition-speed);
+        }
+        
+        .user-portal-controls .username-display:hover {
+            color: var(--color-primary-blue);
+        }
+        
+        .user-portal-controls .logout-btn {
+            background-color: #dc3545;
+            /* A clear, standard color for logout/danger */
+            color: white;
+            padding: 8px 15px;
+            border: none;
+            border-radius: var(--border-radius-standard);
+            font-weight: 600;
+            cursor: pointer;
+            box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+        
+        .user-portal-controls .logout-btn:hover {
+            background-color: #c82333;
+            box-shadow: 0 6px 15px rgba(220, 53, 69, 0.5);
+            transform: translateY(-1px);
+        }
+        /* --- 3. Main Content & Page Sections --- */
+        
+        main {
+            flex-grow: 1;
+            padding: 50px 5%;
+        }
+        
+        .page-section {
+            display: none;
+            max-width: 1200px;
+            margin: 0 auto;
+            min-height: 50vh;
+        }
+        
+        .page-section.active {
+            display: block;
+            animation: fadeIn 0.5s ease-out;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+        
+        .hero-content {
+            text-align: center;
+            padding: 80px 0;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .hero-content h2 {
+            font-size: 2.5rem;
+            color: var(--color-text-light);
+            margin-bottom: 20px;
+        }
+        
+        .hero-content p {
+            font-size: 1.1rem;
+            margin-bottom: 25px;
+            color: #ccc;
+        }
+        
+        .hero-grid {
+            display: flex;
+            gap: 20px;
+            margin: 40px 0;
+            text-align: left;
+        }
+        
+        .hero-card {
+            background-color: var(--color-surface-dark);
+            padding: 30px;
+            border-radius: var(--border-radius-standard);
+            border-top: 5px solid var(--color-accent-green);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+            flex: 1;
+        }
+        
+        .hero-card h3 {
+            color: var(--color-primary-blue);
             margin-bottom: 15px;
+            font-size: 1.5rem;
+        }
+        
+        .hero-card ul {
+            list-style: none;
+            padding-left: 0;
+            font-size: 0.95rem;
+        }
+        
+        .hero-card ul li {
+            margin-bottom: 10px;
+            position: relative;
+            padding-left: 20px;
+        }
+        
+        .hero-card ul li::before {
+            content: "\f058";
+            /* Checkmark icon */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            color: var(--color-accent-green);
+            position: absolute;
+            left: 0;
+        }
+        /* Opportunity List Styles */
+        
+        .list-header {
+            text-align: center;
+            font-size: 2rem;
+            color: var(--color-primary-blue);
+            margin-bottom: 40px;
+        }
+        
+        .opportunity-item {
+            background-color: var(--color-surface-dark);
+            padding: 25px;
+            margin-bottom: 15px;
+            border-radius: var(--border-radius-standard);
+            border-left: 4px solid var(--color-accent-green);
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
             display: flex;
             justify-content: space-between;
             align-items: center;
+            transition: transform 0.3s;
         }
-
-        .opportunity-item h3 {
-            color: #007bff;
+        
+        .opportunity-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0, 123, 255, 0.2);
+        }
+        
+        .opportunity-details {
+            max-width: 80%;
+        }
+        
+        .opportunity-details h3 {
+            color: var(--color-primary-blue);
+            font-size: 1.4rem;
             margin-bottom: 5px;
         }
-
-        .apply-btn {
-            background: #28a745;
-            padding: 8px 14px;
-            color: #fff;
-            border-radius: 6px;
+        
+        .opportunity-details p {
+            font-size: 0.95rem;
+            color: #ccc;
+        }
+        /* --- 4. Form Layout (Admin Page & Auth Pages) --- */
+        
+        .auth-form-container,
+        .admin-form-container {
+            max-width: 600px;
+            margin: 0 auto;
+            background-color: var(--color-surface-dark);
+            padding: 40px;
+            border-radius: var(--border-radius-standard);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.4);
+        }
+        
+        .form-group {
+            position: relative;
+            margin-bottom: 30px;
+        }
+        
+        .form-group label {
+            position: absolute;
+            top: 10px;
+            left: 0;
+            color: #ccc;
+            font-size: 0.9rem;
+            pointer-events: none;
+            transition: all 0.3s ease;
+        }
+        
+        .form-group input,
+        .form-group textarea,
+        .form-group select {
+            width: 100%;
+            padding: 8px 0;
+            background: none;
+            border: none;
+            border-bottom: 1px solid #555;
+            color: var(--color-text-light);
+            font-size: 1rem;
+            font-family: var(--font-main);
+            outline: none;
+        }
+        
+        .form-group input:focus,
+        .form-group textarea:focus,
+        .form-group select:focus {
+            border-bottom-color: var(--color-primary-blue);
+        }
+        
+        .form-group input:focus+label,
+        .form-group input:not(:placeholder-shown)+label,
+        .form-group textarea:focus+label,
+        .form-group textarea:not(:placeholder-shown)+label,
+        .form-group select:valid+label {
+            top: -15px;
+            font-size: 0.75rem;
+            color: var(--color-primary-blue);
+            transform: scale(0.9);
+        }
+        /* Ensure select placeholder works */
+        
+        .form-group select option[disabled]:first-child {
+            color: #ccc;
+        }
+        
+        .auth-form-container p {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .auth-form-container p a {
+            color: var(--color-primary-blue);
             text-decoration: none;
         }
-
-        form {
-            max-width: 500px;
-            margin: auto;
-        }
-
-        input,
-        textarea,
-        select {
-            width: 100%;
-            margin-bottom: 15px;
-            padding: 8px;
-            background: none;
-            border: 1px solid #555;
-            color: #fff;
-        }
-
+        /* --- 5. Custom Message Box --- */
+        
         #message-box {
             position: fixed;
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            background: #292e35;
-            padding: 20px;
-            border-radius: 8px;
+            background-color: var(--color-surface-dark);
+            border: 2px solid var(--color-accent-green);
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(40, 167, 69, 0.5);
+            z-index: 3000;
             display: none;
-            z-index: 999;
+            text-align: center;
+            max-width: 90%;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+        
+        #message-box.show {
+            display: block;
+            opacity: 1;
+        }
+        
+        #message-box button {
+            margin-top: 15px;
+        }
+        /* --- 6. Footer (Detailed/Multi-Section) --- */
+        
+        .portal-footer {
+            padding: 30px 5%;
+            /* More padding for better detail visibility */
+            background-color: var(--color-surface-dark);
+            font-size: 0.8rem;
+            color: var(--color-text-light);
+            margin-top: auto;
+            /* Push footer to the bottom */
+        }
+        
+        .footer-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .footer-section {
+            flex: 1;
+            min-width: 250px;
+            padding: 10px;
+        }
+        
+        .footer-section h4 {
+            color: var(--color-primary-blue);
+            margin-bottom: 15px;
+            font-size: 1.1rem;
+            border-bottom: 1px solid #333;
+            padding-bottom: 5px;
+        }
+        
+        .footer-section p,
+        .footer-section ul {
+            font-size: 0.85rem;
+            color: #aaa;
+        }
+        
+        .footer-section ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .footer-section ul li {
+            margin-bottom: 8px;
+        }
+        
+        .footer-section ul li a {
+            color: #aaa;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+        
+        .footer-section ul li a:hover {
+            color: var(--color-primary-blue);
+        }
+        
+        .footer-bottom {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #333;
+            font-size: 0.75rem;
+            color: #888;
+        }
+        /* --- 7. Responsive Design --- */
+        
+        @media (max-width: 900px) {
+            .main-header {
+                padding: 15px 4%;
+            }
+            .hero-grid {
+                flex-direction: column;
+            }
+            .nav-links {
+                display: none;
+                flex-direction: column;
+                position: absolute;
+                top: 65px;
+                /* Adjust based on header height */
+                left: 0;
+                width: 100%;
+                background-color: var(--color-surface-dark);
+                box-shadow: 0 5px 10px rgba(0, 0, 0, 0.5);
+                padding: 5px 0;
+            }
+            .nav-links.visible {
+                display: flex;
+            }
+            .nav-links a {
+                margin: 5px 4%;
+                padding: 10px 0;
+                text-align: center;
+                border-bottom: 1px solid #333;
+            }
+            .hamburger {
+                display: block;
+                margin-left: 15px;
+            }
+            .btn-access {
+                padding: 8px 15px;
+                font-size: 0.9rem;
+            }
+            .opportunity-item {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+            .opportunity-details {
+                margin-bottom: 15px;
+                max-width: 100%;
+            }
+        }
+        
+        @media (max-width: 600px) {
+            .footer-content {
+                flex-direction: column;
+            }
+            .footer-section {
+                min-width: 100%;
+            }
         }
     </style>
 </head>
 
 <body>
-
-<header>
-    <h2>Dream Bridge</h2>
-    <nav>
-        <a href="#home" data-page="home" class="nav-link active">Home</a>
-        <a href="#scholarships" data-page="scholarships" class="nav-link">Scholarships</a>
-        <a href="#internships" data-page="internships" class="nav-link">Internships</a>
-        <a href="#admin" data-page="admin" class="nav-link admin-link" style="display:none">Admin</a>
-        <a href="#login" data-page="login" class="nav-link auth-link">Login</a>
-    </nav>
-</header>
-
-<main>
-
-<section id="home" class="page active">
-    <h2>Welcome to Dream Bridge 🚀</h2>
-    <p>Find verified scholarships & internships.</p>
-</section>
-
-<section id="scholarships" class="page">
-    <h2>Scholarships 🎓</h2>
-    <div class="scholarships-list"></div>
-</section>
-
-<section id="internships" class="page">
-    <h2>Internships 💼</h2>
-    <div class="internships-list"></div>
-</section>
-
-<section id="login" class="page">
-    <h2>Login</h2>
-    <form id="login-form">
-        <input id="login-email" type="email" placeholder="Email" required />
-        <input id="login-password" type="password" placeholder="Password" required />
-        <button class="btn">Login</button>
-    </form>
-</section>
-
-<section id="admin" class="page">
-    <h2>Admin Panel</h2>
-    <form id="add-opportunity-form">
-        <input id="opp-title" placeholder="Title" required />
-        <textarea id="opp-description" placeholder="Description" required></textarea>
-        <input id="opp-location" placeholder="Location" />
-        <input id="opp-salary" placeholder="Salary/Stipend" />
-        <input id="opp-link" placeholder="Application Link" required />
-        <select id="opp-category" required>
-            <option value="">Select Category</option>
-            <option value="scholarship">Scholarship</option>
-            <option value="internship">Internship</option>
-        </select>
-        <button class="btn">Add Opportunity</button>
-    </form>
-</section>
-
-</main>
-
-<div id="message-box">
-    <p id="message-text"></p>
-    <button onclick="hideMessage()" class="btn">OK</button>
-</div>
-
-<script>
-const pages = document.querySelectorAll('.page');
-const links = document.querySelectorAll('.nav-link');
-const scholarshipsList = document.querySelector('.scholarships-list');
-const internshipsList = document.querySelector('.internships-list');
-
-function showPage(id) {
-    pages.forEach(p => p.classList.remove('active'));
-    document.getElementById(id).classList.add('active');
-    links.forEach(l => l.classList.toggle('active', l.dataset.page === id));
-}
-
-window.addEventListener('hashchange', () => {
-    showPage(location.hash.substring(1) || 'home');
-});
-
-function showMessage(msg) {
-    document.getElementById('message-text').textContent = msg;
-    document.getElementById('message-box').style.display = 'block';
-}
-
-function hideMessage() {
-    document.getElementById('message-box').style.display = 'none';
-}
-
-/* ---------- FETCH & RENDER ---------- */
-function render(list, container) {
-    container.innerHTML = '';
-    if (!list.length) {
-        container.innerHTML = '<p>No opportunities found.</p>';
-        return;
-    }
-    list.forEach(o => {
-        container.innerHTML += `
-            <div class="opportunity-item">
-                <div>
-                    <h3>${o.title}</h3>
-                    <p>${o.description}</p>
-                </div>
-                <a href="${o.link}" target="_blank" class="apply-btn">Apply</a>
+    <header class="main-header">
+        <a href="#home" class="logo">
+            <img src="dream_bridge_logo.png" alt="Dream Bridge Logo" class="logo-img">
+            <span class="logo-text">Dream Bridge</span>
+        </a>
+        <div class="header-right">
+            <i class="fas fa-bars hamburger" id="menu-toggle"></i>
+            <nav class="nav-links" id="mobile-nav">
+                <a href="#home" class="nav-link active" data-page="home">Home</a>
+                <a href="#scholarships" class="nav-link" data-page="scholarships">Scholarships</a>
+                <a href="#internships" class="nav-link" data-page="internships">Internships</a>
+                <a href="#admin" class="nav-link admin-link" data-page="admin">Admin</a>
+                <a href="#login" class="nav-link auth-link" data-page="login">Login</a>
+                <a href="#signup" class="nav-link auth-link" data-page="signup">Sign Up</a>
+            </nav>
+            <div class="user-portal-controls" id="user-portal-controls">
+                <a href="#profile" class="username-display" id="user-profile-link"><i class="fas fa-user-circle"></i> Username Placeholder</a>
+                <button id="logout-btn" class="logout-btn">Logout</button>
             </div>
-        `;
-    });
-}
+            <a href="#login" class="btn-access" id="access-portal-btn">Access Portal</a>
+        </div>
+    </header>
 
-async function loadScholarships() {
-    const res = await fetch('/api/opportunities/scholarships');
-    render(await res.json(), scholarshipsList);
-}
+    <main>
+        <section class="page-section active" id="home">
+            <div class="hero-content">
+                <h2>Bridge Your Ambition: Scholarships & Internships 🚀</h2>
+                <p>Welcome to **Dream Bridge**, your premier platform for securing the financial aid and practical experience you need to launch your career. We curate opportunities from top government and corporate bodies across India.</p>
 
-async function loadInternships() {
-    const res = await fetch('/api/opportunities/internships');
-    render(await res.json(), internshipsList);
-}
+                <div class="hero-grid">
+                    <div class="hero-card">
+                        <h3><i class="fas fa-graduation-cap"></i> Scholarships (Financial Aid)</h3>
+                        <p>Explore funding for your education based on merit and financial need. We connect you with verified schemes like:</p>
+                        <ul>
+                            <li>Central Government Schemes (**NSP** & **PM-USP**).</li>
+                            <li>State-level portals (**SSP Karnataka**).</li>
+                            <li>Corporate-funded programs (**Reliance Foundation**).</li>
+                            <li>Research fellowships (e.g., **INSPIRE**).</li>
+                        </ul>
+                        <a href="#scholarships" class="btn-access" style="margin-top: 15px;">View Scholarships</a>
+                    </div>
 
-loadScholarships();
-loadInternships();
+                    <div class="hero-card">
+                        <h3><i class="fas fa-briefcase"></i> Internships (Experience)</h3>
+                        <p>Gain essential industry experience with paid and unpaid roles. Our listed portals include:</p>
+                        <ul>
+                            <li>Student-focused platforms (**Internshala, Twenty19**).</li>
+                            <li>Major job search engines (**Indeed, Naukri, Foundit**).</li>
+                            <li>Government/PSU programs (**AICTE, MEA**).</li>
+                            <li>Corporate flagships (**Infosys InStep**).</li>
+                        </ul>
+                        <a href="#internships" class="btn-access" style="margin-top: 15px; background-color: var(--color-accent-green);">Find Internships</a>
+                    </div>
+                </div>
 
-/* ---------- LOGIN ---------- */
-document.getElementById('login-form').addEventListener('submit', async e => {
-    e.preventDefault();
-    const email = login-email.value;
-    const password = login-password.value;
+                <p style="font-size: 1rem; margin-top: 20px;">Use the navigation above to explore over 20+ opportunities, complete with valid application links that open securely in a new tab.</p>
 
-    const res = await fetch('/api/auth/login', {
-        method: 'POST',
-        headers: {'Content-Type':'application/json'},
-        body: JSON.stringify({email,password})
-    });
+            </div>
+        </section>
 
-    const data = await res.json();
-    if (!res.ok) return showMessage(data.message);
+        <section class="page-section" id="scholarships">
+            <h2 class="list-header">Visionary Scholarship Portals & Schemes 🎓</h2>
+            <div class="scholarships-list">
+            </div>
+        </section>
 
-    localStorage.setItem('authToken', data.token);
-    localStorage.setItem('userData', JSON.stringify(data));
+        <section class="page-section" id="internships">
+            <h2 class="list-header">Executive Internship Portals & Programs 💼</h2>
+            <div class="internships-list">
+            </div>
+        </section>
 
-    if (data.isAdmin) document.querySelector('.admin-link').style.display = 'inline';
-    showMessage('Login successful');
-    location.hash = 'home';
-});
+        <section class="page-section" id="login">
+            <h2 class="list-header">User Login 🔑</h2>
+            <div class="auth-form-container">
+                <form id="login-form">
+                    <div class="form-group">
+                        <input type="email" id="login-email" required placeholder=" " autocomplete="email">
+                        <label for="login-email">Email Address</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="login-password" required placeholder=" " autocomplete="current-password">
+                        <label for="login-password">Password</label>
+                    </div>
+                    <button type="submit" class="btn-submit">Login</button>
+                    <p>Don't have an account? <a href="#signup">Sign Up Here</a></p>
+                </form>
+            </div>
+        </section>
 
-/* ---------- ADMIN ADD ---------- */
-document.getElementById('add-opportunity-form').addEventListener('submit', async e => {
-    e.preventDefault();
-    const token = localStorage.getItem('authToken');
+        <section class="page-section" id="signup">
+            <h2 class="list-header">Create Your Dream Bridge Account 📝</h2>
+            <div class="auth-form-container">
+                <form id="signup-form">
+                    <div class="form-group">
+                        <input type="text" id="signup-name" required placeholder=" " autocomplete="name">
+                        <label for="signup-name">Full Name</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="email" id="signup-email" required placeholder=" " autocomplete="email">
+                        <label for="signup-email">Email Address</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="signup-password" required placeholder=" " autocomplete="new-password">
+                        <label for="signup-password">Password (Min 8 characters)</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="password" id="signup-confirm-password" required placeholder=" " autocomplete="new-password">
+                        <label for="signup-confirm-password">Confirm Password</label>
+                    </div>
+                    <button type="submit" class="btn-submit">Sign Up</button>
+                    <p>Already have an account? <a href="#login">Login Here</a></p>
+                </form>
+            </div>
+        </section>
 
-    const body = {
-        title: opp-title.value,
-        description: opp-description.value,
-        location: opp-location.value,
-        salary: opp-salary.value,
-        link: opp-link.value,
-        category: opp-category.value.toLowerCase()
-    };
 
-    const res = await fetch('/api/opportunities', {
-        method: 'POST',
-        headers: {
-            'Content-Type':'application/json',
-            'Authorization':`Bearer ${token}`
-        },
-        body: JSON.stringify(body)
-    });
+        <section class="page-section" id="admin">
+            <h2 class="list-header">Admin Control Panel</h2>
+            <div class="admin-form-container">
+                <form id="add-opportunity-form">
+                    <div class="form-group">
+                        <input type="text" id="opp-title" required placeholder=" ">
+                        <label for="opp-title">Opportunity Title</label>
+                    </div>
+                    <div class="form-group">
+                        <textarea id="opp-description" required placeholder=" " rows="4"></textarea>
+                        <label for="opp-description">Description</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="opp-location" required placeholder=" ">
+                        <label for="opp-location">Location</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="text" id="opp-salary" required placeholder=" ">
+                        <label for="opp-salary">Salary/Stipend</label>
+                    </div>
+                    <div class="form-group">
+                        <input type="url" id="opp-link" required placeholder=" ">
+                        <label for="opp-link">Application Link (URL)</label>
+                    </div>
+                    <div class="form-group">
+                        <select id="opp-category" required>
+                            <option value="" disabled selected>Select Category</option>
+                            <option value="scholarship">Scholarship</option>
+                            <option value="internship">Internship</option>
+                        </select>
+                        <label for="opp-category">Category</label>
+                    </div>
+                    <button type="submit" class="btn-submit">Add Opportunity</button>
+                </form>
+            </div>
+        </section>
 
-    if (!res.ok) return showMessage('Failed to add');
+        <section class="page-section" id="profile">
+            <h2 class="list-header">My Profile & Account Settings</h2>
+            <div class="auth-form-container">
+                <p>Welcome to your profile dashboard. Here you would see your application status, saved opportunities, and account details.</p>
+                <div id="profile-details" style="margin-top: 20px; text-align: left;">
+                    <p><strong>Name:</strong> <span id="profile-name">Loading...</span></p>
+                    <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
+                    <p><strong>Role:</strong> <span id="profile-role">Loading...</span></p>
+                </div>
+                <button onclick="handleLogout()" class="logout-btn" style="margin-top: 30px;">Logout from Profile</button>
+            </div>
+        </section>
 
-    showMessage('Added successfully');
-    e.target.reset();
 
-    body.category === 'scholarship' ? loadScholarships() : loadInternships();
-});
-</script>
+    </main>
 
+    <div id="message-box">
+        <p id="message-text"></p>
+        <button id="close-message-btn" class="btn-submit">OK</button>
+    </div>
+
+    <footer class="portal-footer">
+        <div class="footer-content">
+            <div class="footer-section">
+                <h4>Dream Bridge</h4>
+                <p>Connecting students with verified, high-impact scholarships and internships from government and private sectors.</p>
+                <p style="margin-top: 10px;">&copy; 2024 Dream Bridge. All rights reserved.</p>
+            </div>
+            <div class="footer-section">
+                <h4>Quick Links</h4>
+                <ul>
+                    <li><a href="#home">Home</a></li>
+                    <li><a href="#scholarships">Scholarships</a></li>
+                    <li><a href="#internships">Internships</a></li>
+                    <li><a href="#login">User Portal</a></li>
+                </ul>
+            </div>
+            <div class="footer-section">
+                <h4>Resources</h4>
+                <ul>
+                    <li><a href="#">Eligibility Check</a></li>
+                    <li><a href="#">Application Guides</a></li>
+                    <li><a href="#">FAQ & Support</a></li>
+                    <li><a href="#">Terms of Service</a></li>
+                </ul>
+            </div>
+        </div>
+        <div class="footer-bottom">
+            Powered by Student Initiative | Built with Node.js & MongoDB
+        </div>
+    </footer>
+
+
+    <script>
+        // --- Full Script for index.html ---
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const pages = document.querySelectorAll('.page-section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            const adminLink = document.querySelector('.admin-link');
+
+            // DOM references for the user state (NEW)
+            const userPortalControls = document.getElementById('user-portal-controls');
+            const userProfileLink = document.getElementById('user-profile-link');
+            const logoutButton = document.getElementById('logout-btn');
+            const accessPortalButton = document.getElementById('access-portal-btn');
+            const authLinks = document.querySelectorAll('.auth-link'); // Login/Signup nav links
+
+
+            // DOM containers for lists
+            const scholarshipsListContainer = document.querySelector('.scholarships-list');
+            const internshipsListContainer = document.querySelector('.internships-list');
+
+            // --- Custom Message Box Logic ---
+            const messageBox = document.getElementById('message-box');
+            const messageText = document.getElementById('message-text');
+            const closeMessageBtn = document.getElementById('close-message-btn');
+
+            function showMessage(message, isError = false) {
+                messageText.textContent = message;
+                messageBox.style.borderColor = isError ? '#dc3545' : '#28A745';
+                messageBox.style.boxShadow = isError ? '0 0 20px rgba(220, 53, 69, 0.5)' : '0 0 20px rgba(40, 167, 69, 0.5)';
+                messageBox.classList.add('show');
+            }
+
+            closeMessageBtn.addEventListener('click', () => {
+                messageBox.classList.remove('show');
+            });
+
+
+            // --- LOGOUT HANDLER (NEW) ---
+            function handleLogout() {
+                localStorage.removeItem('authToken');
+                localStorage.removeItem('userData');
+                showMessage('You have been securely logged out.');
+                checkAuthState(); // Update the UI state
+                window.location.hash = 'home'; // Redirect to home page
+            }
+
+            // Attach the logout handler to the header button
+            if (logoutButton) {
+                logoutButton.addEventListener('click', handleLogout);
+            }
+
+            // --- Hardcoded Content for Display (Replaces Backend Data Fetch) ---
+
+            const hardcodedScholarshipHTML = `
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-globe"></i> National Scholarship Portal (NSP)</h3>
+                        <p>Focus: **Centralized platform** for all Government of India schemes (Central Sector, UGC/AICTE, State Schemes). Criteria vary widely based on scheme, covering minority students, higher education, and research fellowships nationwide.</p>
+                    </div>
+                    <a href="https://scholarships.gov.in/" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-university"></i> State Scholarship Portal (SSP) - Karnataka</h3>
+                        <p>Focus: **State-level scholarships** for students in Karnataka across various categories (SC/ST, OBC, General). Eligibility often tied to domicile and annual family income. Provides financial aid for pre-matric and post-matric studies.</p>
+                    </div>
+                    <a href="https://ssp.karnataka.gov.in" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-flask"></i> INSPIRE Scholarship (DST) - SHE</h3>
+                        <p>Focus: Scholarship for **Higher Education (SHE)** awarded by the Department of Science & Technology (DST) to students pursuing undergraduate and postgraduate courses in Basic and Natural Sciences. Provides ₹80,000 per student each
+                            year.
+                        </p>
+                    </div>
+                    <a href="http://www.online-inspire.gov.in/" target="_blank" class="apply-now-btn">Check Guidelines</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-laptop-code"></i> AICTE PG Scholarship (Technical Education)</h3>
+                        <p>Focus: Stipend for **GATE/GPAT qualified students** pursuing full-time M.E./M.Tech./M.Arch. and M.Pharma programs in AICTE-approved institutions. Offers ₹12,400 per month for up to 2 years.</p>
+                    </div>
+                    <a href="https://www.aicte-india.org/schemes/students-development-schemes/Scholarship-Scheme" target="_blank" class="apply-now-btn">Check Guidelines</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-cogs"></i> Reliance Foundation Scholarships</h3>
+                        <p>Focus: **Merit-cum-means** scholarships for undergraduate and postgraduate students in technical, professional, and arts/science streams. Emphasizes academic excellence and financial need. Supports future leaders in India.</p>
+                    </div>
+                    <a href="https://www.scholarships.reliancefoundation.org" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-plane-departure"></i> J.N. Tata Endowment Loan Scholarship</h3>
+                        <p>Focus: **Loan scholarships** for Indian nationals for higher studies (Master's, Ph.D., Post-doctoral research) abroad in any subject. It is a highly prestigious, low-interest loan with the possibility of a partial loan waiver.</p>
+                    </div>
+                    <a href="https://www.jntataendowment.org/" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-globe-americas"></i> K.C. Mahindra Scholarships (Studies Abroad)</h3>
+                        <p>Focus: **Interest-free loan scholarships** for Indian students wishing to pursue postgraduate studies abroad in technical subjects, performing arts, and humanities. Aims to promote education across all fields.</p>
+                    </div>
+                    <a href="https://www.kcmet.org/" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-chart-line"></i> Chevening Scholarships (UK)</h3>
+                        <p>Focus: **Fully funded scholarship** for future leaders from around the world to pursue a one-year Master's degree in the UK. Selection is based on leadership potential and networking abilities.</p>
+                    </div>
+                    <a href="https://www.chevening.org/" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-handshake"></i> World Bank JJ/WBGSP Scholarship</h3>
+                        <p>Focus: **Graduate scholarship** for mid-career professionals from developing countries to complete a Master's degree in development-related fields at top universities globally. Funded by the Government of Japan.</p>
+                    </div>
+                    <a href="https://www.worldbank.org/en/programs/scholarships" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-child"></i> Post Matric Scholarship for Minorities</h3>
+                        <p>Focus: Scheme offered by the Ministry of Minority Affairs to financially assist **meritorious students from minority communities** (Muslims, Sikhs, Christians, Buddhists, Jain, Parsis) pursuing post-matric studies, including technical
+                            and vocational courses.</p>
+                    </div>
+                    <a href="https://scholarships.gov.in/" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-female"></i> Post-Graduate Indira Gandhi Scholarship for Single Girl Child</h3>
+                        <p>Focus: Scholarship by the **UGC** to promote female education. It provides financial support of **₹36,200 p.a.** for a female student who is the **only child** in the family, pursuing a full-time PG course in any subject.</p>
+                    </div>
+                    <a href="https://www.ugc.gov.in/pdfnews/3761899_Guidelines_Indira.pdf" target="_blank" class="apply-now-btn">Check Guidelines</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-microchip"></i> Prime Minister's Research Fellows (PMRF) Scheme</h3>
+                        <p>Focus: Highly prestigious scheme for exceptional students to pursue **Ph.D. at IITs, IISc, IISERs, and central universities**. Offers a handsome fellowship of **₹70,000 - ₹80,000 per month** along with a research grant.</p>
+                    </div>
+                    <a href="https://may2021.pmrf.in/" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-shield-alt"></i> Sitaram Jindal Scholarship Scheme</h3>
+                        <p>Focus: **Need-based and merit-based** financial assistance for students from Class 11 up to Post-Graduation. Covers technical, non-technical, and medical streams. Known for a simple and accessible application process.</p>
+                    </div>
+                    <a href="https://www.sitaramjindalfoundation.org/" target="_blank" class="apply-now-btn">Check Eligibility</a>
+                </div>
+               
+            `;
+
+            const hardcodedInternshipHTML = `
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-briefcase"></i> Internshala Internship Portal</h3>
+                        <p>Focus: **The largest student-friendly portal in India** for verified internships (paid/unpaid, remote/in-office) across all major streams (Engineering, Management, Arts, Design). Excellent resource for first-time interns.</p>
+                    </div>
+                    <a href="https://internshala.com" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-search"></i> Indeed Internship Portal (Job Search Engine)</h3>
+                        <p>Focus: A **global job search engine** that aggregates internship listings from thousands of company career pages and job boards. Ideal for specific location, company, or advanced keyword-based searches.</p>
+                    </div>
+                    <a href="https://in.indeed.com" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-rocket"></i> Foundit Internship Portal</h3>
+                        <p>Focus: Comprehensive platform offering listings for freshers and experienced professionals, including dedicated **internship and entry-level roles** across core industries like IT, HR, Marketing, and Finance.</p>
+                    </div>
+                    <a href="https://www.foundit.in" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fab fa-linkedin"></i> LinkedIn Internships</h3>
+                        <p>Focus: **Professional networking site** that lists internships directly from company pages and recruiters. Best for targeting specific large corporations and building connections. Excellent for finding high-quality, corporate roles.</p>
+                    </div>
+                    <a href="https://www.linkedin.com/jobs/internships/" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-newspaper"></i> Naukri.com Internship Section</h3>
+                        <p>Focus: One of India's **pioneering job portals** with a strong filter for internships and fresher jobs. High volume of listings, often preferred by larger Indian companies for their hiring needs across various sectors.</p>
+                    </div>
+                    <a href="https://www.naukri.com/internship-jobs" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-trophy"></i> Unstop Internships & Competitions</h3>
+                        <p>Focus: Platform for **competitions, hiring challenges, and internships** from top companies like L'Oréal and TATA. Ideal for students who want to participate in real-world business challenges that often lead to Pre-Placement Offers
+                            (PPOs).
+                        </p>
+                    </div>
+                    <a href="https://unstop.com/internships" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-robot"></i> AICTE Internship Portal (Government Initiative)</h3>
+                        <p>Focus: Official platform by the All India Council for Technical Education (AICTE) connecting students with internships offered by **Government bodies, PSUs, and partner industries**. Highly recommended for Engineering students.</p>
+                    </div>
+                    <a href="https://internship.aicte-india.org/" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-code"></i> Infosys InStep & Winternship</h3>
+                        <p>Focus: Flagship **global internship program** for management, technology, and liberal arts students. Provides project work, mentorship, and world-renowned training. Top performers often receive pre-placement opportunities.</p>
+                    </div>
+                    <a href="https://www.infosys.com/careers/internships.html" target="_blank" class="apply-now-btn">Explore</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-gavel"></i> Ministry of External Affairs (MEA) Internship</h3>
+                        <p>Focus: Highly prestigious, short-duration internships at the MEA Headquarters. Open to Indian citizens, typically graduates, with a focus on foreign policy, diplomacy, and international relations. Age limit usually under 25 years.</p>
+                    </div>
+                    <a href="https://internship.mea.gov.in/internship" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-hand-holding-usd"></i> Twenty19 Internship Platform</h3>
+                        <p>Focus: Dedicated platform bridging students and companies, often specializing in **virtual, remote, and part-time internships**. Known for offering roles across niche skills and providing structured work-from-home experiences.</p>
+                    </div>
+                    <a href="https://www.twenty19.com/" target="_blank" class="apply-now-btn">Apply Now</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-building"></i> Tata Administrative Services (TAS) Internship</h3>
+                        <p>Focus: A highly sought-after internship offering exposure to diverse **Tata Group companies** (TCS, Tata Motors, Taj Hotels). Excellent program for management and top engineering students looking for cross-functional leadership
+                            roles.
+                        </p>
+                    </div>
+                    <a href="https://www.tas.careers/internships" target="_blank" class="apply-now-btn">Explore</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-hand-point-right"></i> Google Summer of Code (GSoC)</h3>
+                        <p>Focus: A **global, paid program** that pairs students with open-source organizations to work on a 12+ week programming project. Ideal for Computer Science/IT students interested in contributing to open-source software.</p>
+                    </div>
+                    <a href="https://summerofcode.withgoogle.com/" target="_blank" class="apply-now-btn">Learn More</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-globe"></i> UN Volunteer Internship Programme (United Nations)</h3>
+                        <p>Focus: Opportunities for students and graduates interested in **global development, social work, and peacekeeping**. Internships are in various UN agencies, both in-country and abroad, focusing on international relations and policy.</p>
+                    </div>
+                    <a href="https://www.unv.org/" target="_blank" class="apply-now-btn">Explore</a>
+                </div>
+                <div class="opportunity-item">
+                    <div class="opportunity-details">
+                        <h3><i class="fas fa-user-tie"></i> Public Policy & Administration Internships (e.g., NITI Aayog)</h3>
+                        <p>Focus: Internships offered by **Government think tanks and ministries** like NITI Aayog, Ministry of Finance, etc. Excellent for students in Economics, Public Policy, Law, and Management seeking experience in governance.</p>
+                    </div>
+                    <a href="https://niti.gov.in/careers-all/internship" target="_blank" class="apply-now-btn">Check Portals</a>
+                </div>
+                
+            `;
+            // --- End Hardcoded Content ---
+
+            // --- Initial Data Load on page load ---
+            function loadInitialData() {
+                // Insert the hardcoded content directly into the DOM
+                if (scholarshipsListContainer) {
+                    scholarshipsListContainer.innerHTML = hardcodedScholarshipHTML;
+                }
+                if (internshipsListContainer) {
+                    internshipsListContainer.innerHTML = hardcodedInternshipHTML;
+                }
+                // No more fetch or render functions needed for these pages
+            }
+
+            // Call the function to load data immediately
+            loadInitialData();
+
+            // --- Mobile Navigation Toggle & Page Navigation Logic ---
+            const menuToggle = document.getElementById('menu-toggle');
+            const mobileNav = document.getElementById('mobile-nav');
+
+            menuToggle.addEventListener('click', () => {
+                mobileNav.classList.toggle('visible');
+            });
+
+            function showPage(pageId) {
+                pages.forEach(page => {
+                    page.classList.remove('active');
+                });
+                navLinks.forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('data-page') === pageId) {
+                        link.classList.add('active');
+                    }
+                });
+                const targetPage = document.getElementById(pageId);
+                if (targetPage) {
+                    targetPage.classList.add('active');
+
+                    // Specific logic for the profile page
+                    if (pageId === 'profile') {
+                        const userData = JSON.parse(localStorage.getItem('userData'));
+                        if (userData) {
+                            document.getElementById('profile-name').textContent = userData.name || 'N/A';
+                            // Note: Email is not stored in userData in your current login, 
+                            // but you might add it in a real backend. Using a placeholder for now.
+                            document.getElementById('profile-email').textContent = localStorage.getItem('loginEmail') || 'N/A';
+                            document.getElementById('profile-role').textContent = userData.isAdmin ? 'Administrator' : 'Standard User';
+                        } else {
+                            window.location.hash = 'login'; // Redirect if no user data
+                        }
+                    }
+
+                } else {
+                    showPage('home');
+                }
+                mobileNav.classList.remove('visible');
+            }
+
+            // --- AUTHENTICATION STATE CHECK (MODIFIED) ---
+            function checkAuthState() {
+                const token = localStorage.getItem('authToken');
+                const userData = JSON.parse(localStorage.getItem('userData'));
+
+                const isLoggedIn = token && userData;
+
+                if (isLoggedIn) {
+                    // 1. Show Logged-in Controls (Username, Profile, Logout)
+                    userPortalControls.classList.add('logged-in');
+
+                    // Populate Username/Profile Link
+                    if (userProfileLink) {
+                        userProfileLink.innerHTML = `<i class="fas fa-user-circle"></i> ${userData.name || 'Profile'}`;
+                    }
+
+                    // 2. Hide Login/Signup elements in header
+                    accessPortalButton.style.display = 'none';
+                    authLinks.forEach(link => link.style.display = 'none');
+
+                    // 3. Show Admin link if applicable
+                    if (userData.isAdmin) {
+                        adminLink.classList.add('show');
+                    } else {
+                        adminLink.classList.remove('show');
+                        // Prevent non-admin users from staying on the admin page
+                        if (window.location.hash.substring(1) === 'admin') {
+                            window.location.hash = 'home';
+                        }
+                    }
+
+                } else {
+                    // 1. Hide Logged-in Controls
+                    userPortalControls.classList.remove('logged-in');
+
+                    // 2. Show Login/Signup elements in header
+                    accessPortalButton.style.display = 'inline-block';
+                    authLinks.forEach(link => link.style.display = 'inline');
+
+                    // 3. Hide Admin link
+                    adminLink.classList.remove('show');
+
+                    // If user is logged out, redirect them away from protected pages
+                    const currentHash = window.location.hash.substring(1);
+                    if (currentHash === 'admin' || currentHash === 'profile') {
+                        window.location.hash = 'home';
+                    }
+                }
+            }
+
+            checkAuthState();
+            const initialHash = window.location.hash.substring(1) || 'home';
+            showPage(initialHash);
+
+            window.addEventListener('hashchange', () => {
+                const newHash = window.location.hash.substring(1) || 'home';
+                checkAuthState();
+                showPage(newHash);
+            });
+
+            navLinks.forEach(link => {
+                link.addEventListener('click', (e) => {
+                    if (link.getAttribute('href').startsWith('#')) {
+                        e.preventDefault();
+                        const pageId = link.getAttribute('data-page');
+                        window.location.hash = pageId;
+                    }
+                });
+            });
+
+            // --- Utility function to manage button state ---
+            function setButtonState(button, isLoading, originalText) {
+                button.disabled = isLoading;
+                if (isLoading) {
+                    button.textContent = 'Processing...';
+                    button.style.backgroundColor = '#6c757d';
+                } else {
+                    button.textContent = originalText;
+                    button.style.backgroundColor = '#007BFF';
+                }
+            }
+
+            // --- REAL LOGIN FORM LOGIC (UPDATED) ---
+            const loginForm = document.getElementById('login-form');
+            if (loginForm) {
+                loginForm.addEventListener('submit', async(e) => {
+                    e.preventDefault();
+                    const submitBtn = loginForm.querySelector('.btn-submit');
+                    const originalText = submitBtn.textContent;
+                    setButtonState(submitBtn, true, originalText);
+
+                    const email = document.getElementById('login-email').value;
+                    const password = document.getElementById('login-password').value;
+
+                    try {
+                        // NOTE: This fetch call assumes your backend (e.g., Node.js server) is running
+                        const response = await fetch('/api/auth/login', {
+
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                email,
+                                password
+                            }),
+                        });
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            localStorage.setItem('authToken', data.token);
+                            localStorage.setItem('userData', JSON.stringify({
+                                name: data.name,
+                                isAdmin: data.isAdmin
+                            }));
+                            localStorage.setItem('loginEmail', email); // Store email for profile display
+
+                            showMessage(`Welcome back, ${data.name}! Redirecting...`);
+                            loginForm.reset();
+                            checkAuthState(); // MUST be called to update header
+                            window.location.hash = data.isAdmin ? 'admin' : 'home';
+                        } else {
+                            throw new Error(data.message || 'Login failed due to server error.');
+                        }
+
+                    } catch (error) {
+                        console.error('Login Error:', error.message);
+                        showMessage(`Login failed: ${error.message}`, true);
+                    } finally {
+                        setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+
+            // --- REAL SIGN UP FORM LOGIC ---
+            const signupForm = document.getElementById('signup-form');
+            if (signupForm) {
+                signupForm.addEventListener('submit', async(e) => {
+                    e.preventDefault();
+                    const submitBtn = signupForm.querySelector('.btn-submit');
+                    const originalText = submitBtn.textContent;
+                    setButtonState(submitBtn, true, originalText);
+
+                    const name = document.getElementById('signup-name').value;
+                    const email = document.getElementById('signup-email').value;
+                    const password = document.getElementById('signup-password').value;
+                    const confirmPassword = document.getElementById('signup-confirm-password').value;
+
+                    if (password !== confirmPassword) {
+                        showMessage('Passwords do not match.', true);
+                        setButtonState(submitBtn, false, originalText);
+                        return;
+                    }
+
+                    try {
+                        // NOTE: This fetch call assumes your backend (e.g., Node.js server) is running
+                        const response = await fetch('/api/auth/signup', {
+
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json'
+                            },
+                            body: JSON.stringify({
+                                name,
+                                email,
+                                password
+                            }),
+                        });
+
+                        const data = await response.json();
+
+                        if (response.ok) {
+                            showMessage(`Success! Account created for ${data.name}. Please log in.`);
+                            signupForm.reset();
+                            window.location.hash = 'login';
+                        } else {
+                            throw new Error(data.message || 'Sign up failed due to server error.');
+                        }
+
+                    } catch (error) {
+                        console.error('Sign Up Error:', error.message);
+                        showMessage(`Sign Up failed: ${error.message}`, true);
+                    } finally {
+                        setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+
+
+            // --- ADMIN FORM LOGIC ---
+            const adminForm = document.getElementById('add-opportunity-form');
+            if (adminForm) {
+                adminForm.addEventListener('submit', async(e) => {
+                    e.preventDefault();
+
+                    const token = localStorage.getItem('authToken');
+                    const userData = JSON.parse(localStorage.getItem('userData'));
+
+                    if (!token || !userData || !userData.isAdmin) {
+                        showMessage('Access denied. Only administrators can add opportunities.', true);
+                        return;
+                    }
+
+                    const form = e.target;
+                    const submitBtn = form.querySelector('.btn-submit');
+                    const originalText = submitBtn.textContent;
+
+                    setButtonState(submitBtn, true, originalText);
+
+                    const newOpportunity = {
+                        title: document.getElementById('opp-title').value,
+                        description: document.getElementById('opp-description').value,
+                        location: document.getElementById('opp-location').value,
+                        salary: document.getElementById('opp-salary').value,
+                        link: document.getElementById('opp-link').value,
+                        category: document.getElementById('opp-category').value.toLowerCase(),
+
+                    };
+
+                    try {
+                        // NOTE: This fetch call assumes your backend (e.g., Node.js server) is running
+                        const response = await fetch('/api/opportunities', {
+
+
+                            method: 'POST',
+                            headers: {
+                                'Content-Type': 'application/json',
+                                'Authorization': `Bearer ${token}`
+                            },
+                            body: JSON.stringify(newOpportunity)
+                        });
+                        const data = await response.json();
+
+                        if (!response.ok) {
+                            throw new Error(data.message || 'Failed to add opportunity.');
+                        }
+
+                        showMessage(`Opportunity "${newOpportunity.title}" added successfully!`);
+                        form.reset();
+
+                    } catch (error) {
+                        console.error('Add Opportunity Error:', error);
+                        showMessage(`Submission failed: ${error.message || 'An unexpected error occurred.'}`, true);
+                    } finally {
+                        setButtonState(submitBtn, false, originalText);
+                    }
+                });
+            }
+        });
+    </script>
 </body>
+
+
 </html>
