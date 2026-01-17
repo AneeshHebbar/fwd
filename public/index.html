@@ -1293,7 +1293,8 @@
 
                     try {
                         // NOTE: This fetch call assumes your backend (e.g., Node.js server) is running
-                        const response = await fetch('/api/auth/opportunities', {
+                        const response = await fetch('/api/opportunities', {
+
 
                             method: 'POST',
                             headers: {
@@ -1322,5 +1323,6 @@
         });
     </script>
 </body>
+
 
 </html>
